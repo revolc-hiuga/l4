@@ -1,24 +1,30 @@
 def main():
     while True:
-        command = input("请输入命令：")
+        command = input("> ")
+        command = command.strip()
+        
         if command == "ver":
             print_version()
         elif command == "help":
             print_help()
         elif command == "quit":
             break
+        elif command == "":
+            continue
         else:
-            message = "您输出的表达式为" + command + "，"
-            if is_number(command):
-                message += "这是一个数字。"
-            else:
-                message += "这不是一个数字。"
-            print(message)
+            array = command.split(' ')
+            for s in array:
+                message = s
+                if is_number(s):
+                    message += " 是一个数字。"
+                else:
+                    message += " 不是一个数字。"
+                print(message)
 
 
 def print_version():
     print("狮心L4计算器 作者：日向 2026")
-    print("版本：0.0 build: 4")
+    print("版本：0.0 build: 5")
     print()
 
 def print_help():
