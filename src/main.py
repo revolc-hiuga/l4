@@ -12,19 +12,12 @@ def main():
         elif command == "":
             continue
         else:
-            array = command.split(' ')
-            for s in array:
-                message = s
-                if is_number(s):
-                    message += " 是一个数字。"
-                else:
-                    message += " 不是一个数字。"
-                print(message)
-
+            array = split_str(command)
+            print("分割后的字符串：", array)
 
 def print_version():
     print("狮心L4计算器 作者：日向 2026")
-    print("版本：0.0 build: 5")
+    print("版本：0.0 build: 6")
     print()
 
 def print_help():
@@ -51,6 +44,48 @@ def is_number(s:str) -> bool:
     if len(array) != 2:
         return False
     return array[0].isdigit() and array[1].isdigit()
+
+SPLIT_STR_STATE_START = 1
+SPLIT_STR_STATE_NUM = 2
+SPLIT_STR_STATE_OTHER = 3
+
+# 分割字符串
+# 将字符串按照一定规则分割为字符串列表
+def split_str(s:str) -> list[str]:
+    state = SPLIT_STR_STATE_START
+    num_str = ""
+    result:list[str] = []
+
+    for c in s:
+        if state == SPLIT_STR_STATE_START:
+            if c.isdigit() or c == '.':
+                num_str += c
+                state = SPLIT_STR_STATE_NUM
+            else:
+                if c != " ":
+                    result.append(c)
+                state = SPLIT_STR_STATE_OTHER
+        elif state == SPLIT_STR_STATE_NUM:
+            if c.isdigit() or c == '.':
+                num_str += c
+            else:
+                result.append(num_str)
+                num_str = ""
+
+                if c != " ":
+                    result.append(c)
+                state = SPLIT_STR_STATE_OTHER
+        else:   # SPLIT_STR_STARE_OTHER
+            if c.isdigit() or c == '.':
+                num_str += c
+                state = SPLIT_STR_STATE_NUM
+            else:
+                if c != " ":
+                    result.append(c)
+
+    if num_str != "":
+        result.append(num_str)
+    return result
 
 if __name__ == "__main__":
     main()
