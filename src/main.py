@@ -21,13 +21,17 @@ def main():
 
             if is_legal_lex_metas(lex_metas):
                 result = calc(lex_metas)
-                print(f"计算结果为：{result}\n")
+
+                if result == int(result):
+                    print(f"计算结果为：{int(result)}\n")
+                else:
+                    print(f"计算结果为：{result}\n")
             else:
                 print("这不是一个正确的表达式。\n")
 
 def print_version():
     print("狮心L4计算器 作者：日向 2026.9")
-    print("版本：0.0 build: 9")
+    print("版本：0.0 build: 10")
     print()
 
 def print_help():
