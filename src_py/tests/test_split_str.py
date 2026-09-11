@@ -1,5 +1,5 @@
 import unittest
-from src.main import split_str
+from src_py.main import split_str
 
 class TestIsNumber(unittest.TestCase):
     def test_split_str(self):
